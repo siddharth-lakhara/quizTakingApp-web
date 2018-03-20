@@ -1,19 +1,19 @@
 import React from 'react';
-import HomePage from '../HomePage';
+import LoginPage from '../LoginPage';
 
 class PageSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 'home',
+      currentPage: 'login',
     };
   }
 
   render() {
     switch (this.state.currentPage) {
-      case 'home': {
+      case 'login': {
         return (
-          <HomePage />
+          <LoginPage />
         );
       }
 

@@ -1,0 +1,34 @@
+.LoginPage-main {
+    background: #18224B;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.LoginCard-left {
+    background: #6BC5F0;
+    width: 30%;
+    height: 400px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.LoginCard-left-text1 {
+    font-size: 35px;
+    font-weight: bold;
+
+}
+
+.LoginCard-left-text2 {
+    color: white;
+    font-weight: bold;
+    font-size: 45px;
+}
+
+.LoginCard-right {
+    background: white;
+    width: 30%;
+    height: 400px;
+}
