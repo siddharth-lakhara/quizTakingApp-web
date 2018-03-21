@@ -8,7 +8,15 @@ const LoginPage = () => (
       <div className="LoginCard-left-text2"> Quizzy! </div>
     </div>
     <div className="LoginCard-right">
-        Right card
+      <div className="loginContents-aligner" />
+      <div className="loginContents-items">
+        <div className="LoginCard-right-text">Login</div>
+        <div>
+          <div className="LoginCard-right-label">Username</div>
+          <div className="LoginCard-right-inp"><input type="text" className="userName-input" /></div>
+        </div>
+        <input type="button" className="LoginCard-right-btn" value="Login" />
+      </div>
     </div>
   </div>
 );

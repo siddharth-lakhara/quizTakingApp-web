@@ -28,7 +28,42 @@
 }
 
 .LoginCard-right {
+    font-size: 30px;
+    text-align: left;
     background: white;
     width: 30%;
     height: 400px;
+    display: flex;
+}
+
+.loginContents-aligner {
+    height: 400px;
+    width: 11%;
+}
+
+.loginContents-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.userName-input {
+    border: 2px solid black;
+    width: 80%;
+    height: 30px;
+}
+
+.userName-input:focus, .LoginCard-right-btn:focus {
+    outline: 0;
+}
+
+.LoginCard-right-btn { 
+    align-self: center;
+    border: 2px solid black;
+    border-radius: 20px ;
+    width: 70%;
+    padding: 10px;
+    font-size: 30px;
+    margin-left: -15px;
 }
