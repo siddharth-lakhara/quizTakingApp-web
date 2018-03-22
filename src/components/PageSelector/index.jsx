@@ -13,7 +13,7 @@ class PageSelector extends React.Component {
     switch (this.state.currentPage) {
       case 'login': {
         return (
-          <LoginPage />
+          <LoginPage changePage={() => { this.setState({ currentPage: 'dashboard' }); }} />
         );
       }
 
