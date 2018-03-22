@@ -1,11 +1,15 @@
 import React from 'react';
 import LoginPage from '../LoginPage';
+import DashBoard from '../Dashboard';
+import LeaderBoard from '../LeaderBoard';
 
 class PageSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 'login',
+      currentPage: 'dashboard',
+      score: 0,
+      maxScore: 0,
     };
   }
 
@@ -13,16 +17,26 @@ class PageSelector extends React.Component {
     switch (this.state.currentPage) {
       case 'login': {
         return (
-          <LoginPage changePage={() => { this.setState({ currentPage: 'dashboard' }); }} />
+          <LoginPage
+            updateUserName={this.props.updateUserName}
+            changePage={() => {
+            this.setState({ currentPage: 'dashboard' });
+          }}
+          />
         );
       }
 
       case 'dashboard': {
-        return (<div>DashBoard Page </div>);
+        return (
+          <DashBoard
+            userName={this.props.user}
+            changePage={() => { this.setState({ currentPage: 'leaderBoard' }); }}
+          />
+        );
       }
 
       case 'leaderBoard': {
-        return (<div>leaderBoard Page </div>);
+        return (<LeaderBoard />);
       }
 
       default: {

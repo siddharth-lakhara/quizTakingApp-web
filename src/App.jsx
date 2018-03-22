@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUserName: '',
+      currentUserName: 'siddharth',
     };
   }
 
@@ -15,7 +15,10 @@ class App extends Component {
     return (
       <div className="App">
         <Headers user={this.state.currentUserName} />
-        <PageSelector />
+        <PageSelector
+          user={this.state.currentUserName}
+          updateUserName={(userName) => { this.setState({ currentUserName: userName }); }}
+        />
       </div>);
   }
 }

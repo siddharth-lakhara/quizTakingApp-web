@@ -48,6 +48,7 @@ class LoginPage extends React.Component {
               onClick={() => {
                 if (this.checkInput()) {
                   this.props.changePage();
+                  this.props.updateUserName(this.state.userName);
                 } else {
                   alert('Empty Username not accepted!');
                 }
