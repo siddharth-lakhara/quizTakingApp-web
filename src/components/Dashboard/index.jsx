@@ -1,34 +1,39 @@
 import React from 'react';
-
-
+import './dashboard.css';
 // options: Array[4]
 // question: "What is the capital of India"
 // questionid: 12
-const Questions = (data) => {
-  console.log(data);
-  const questionBox = data.data.map((questions, index) => {
+
+const Questions = (input) => {
+  const { data, responses } = input;
+  const questionBox = data.map((questions, index) => {
     const questionTitle = <div className="Question-index">Questions {index + 1}</div>;
-    const questionText = <div> {questions.question} </div>;
+    const questionText = <div className="Question-text"> {questions.question} </div>;
     const optionArray = questions.options;
     const optionDiv = optionArray.map(e => (
-      <div>
-        {e}
-      </div>
+      <label className="Question-options-container">
+        <input
+          type="radio"
+          value={e}
+          key={questions.questionid}
+          className="Question-options-elem"
+          checked={responses[questions.questionid] === e}
+        />
+        &nbsp;{e}<br />
+      </label>
     ));
-    // console.log('printing: ', questions, index);
-    // console.log('****');
     return (
-      <div className="questionBox">
+      <div className="questionBox" key={questions.questionid}>
         {questionTitle}
         {questionText}
-        {optionDiv}
+        <div className="Question-options">
+          {optionDiv}
+        </div>
       </div>
     );
-    // return questionTitle;
   });
-  //   console.log(questionBox);
+
   return questionBox;
-//   return questionBox;
 };
 
 class DashBoard extends React.Component {
@@ -36,13 +41,18 @@ class DashBoard extends React.Component {
     super(props);
     this.state = {
       questions: [],
+      responses: {},
     };
   }
 
   componentDidMount() {
     fetch('/fetch').then(res => res.json())
-      .then((res) => {
-        this.updateQuestions(res);
+      .then((questions) => {
+        this.updateQuestions(questions);
+        fetch(`/responses/${this.props.userName}`).then(res => res.json())
+          .then((responses) => {
+            this.updateResponses(responses);
+          });
       });
   }
 
@@ -50,10 +60,17 @@ class DashBoard extends React.Component {
     this.setState({ questions });
   }
 
+  updateResponses(responses) {
+    this.setState({ responses });
+  }
+
   render() {
     return (
       <div className="dashboard-main">
-        <Questions data={this.state.questions} />
+        <Questions
+          data={this.state.questions}
+          responses={this.state.responses}
+        />
         <button className="dashboard-btn">Calculate</button>
       </div>
     );
