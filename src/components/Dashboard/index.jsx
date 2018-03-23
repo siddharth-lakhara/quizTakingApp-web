@@ -1,11 +1,12 @@
 import React from 'react';
 import './dashboard.css';
+
 // options: Array[4]
 // question: "What is the capital of India"
 // questionid: 12
 
-const Questions = (input) => {
-  const { data, responses } = input;
+const Questions = (props) => {
+  const { data, responses } = props;
   const questionBox = data.map((questions, index) => {
     const questionTitle = <div className="Question-index">Questions {index + 1}</div>;
     const questionText = <div className="Question-text"> {questions.question} </div>;
@@ -18,6 +19,10 @@ const Questions = (input) => {
           key={questions.questionid}
           className="Question-options-elem"
           checked={responses[questions.questionid] === e}
+          onClick={(event) => {
+            responses[questions.questionid] = (event.target.value);
+            props.updateResponses(responses, questions.questionid);
+          }}
         />
         &nbsp;{e}<br />
       </label>
@@ -43,6 +48,7 @@ class DashBoard extends React.Component {
       questions: [],
       responses: {},
     };
+    this.updateUserResponses = this.updateUserResponses.bind(this);
   }
 
   componentDidMount() {
@@ -64,12 +70,25 @@ class DashBoard extends React.Component {
     this.setState({ responses });
   }
 
+  updateUserResponses(responses, questionid) {
+    this.setState({ responses });
+    const postData = {
+      username: this.props.userName,
+      questionid,
+      answer: responses[questionid],
+    };
+    fetch('/responses', {
+      method: 'POST',
+      body: JSON.stringify(postData),
+    });
+  }
   render() {
     return (
       <div className="dashboard-main">
         <Questions
           data={this.state.questions}
           responses={this.state.responses}
+          updateResponses={this.updateUserResponses}
         />
         <button className="dashboard-btn">Calculate</button>
       </div>
