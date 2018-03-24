@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUserName: 'siddharth',
+      currentUserName: '',
     };
   }
 
@@ -17,7 +17,12 @@ class App extends Component {
         <Headers user={this.state.currentUserName} />
         <PageSelector
           user={this.state.currentUserName}
-          updateUserName={(userName) => { this.setState({ currentUserName: userName }); }}
+          updateUserName={userName => fetch('/login', {
+              method: 'POST',
+              body: JSON.stringify({
+                userName,
+              }),
+            }).then(() => this.setState({ currentUserName: userName }))}
         />
       </div>);
   }
