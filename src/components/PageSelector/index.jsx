@@ -7,7 +7,7 @@ class PageSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 'dashboard',
+      currentPage: 'login',
       score: 0,
       maxScore: 0,
     };
@@ -30,13 +30,26 @@ class PageSelector extends React.Component {
         return (
           <DashBoard
             userName={this.props.user}
-            changePage={() => { this.setState({ currentPage: 'leaderBoard' }); }}
+            updateScore={(maxScore) => {
+              this.setState({ maxScore });
+            }}
+            changePage={(score) => {
+              this.setState({
+                currentPage: 'leaderBoard',
+                score,
+              });
+          }}
           />
         );
       }
 
       case 'leaderBoard': {
-        return (<LeaderBoard />);
+        return (
+          <LeaderBoard
+            score={this.state.score}
+            maxScore={this.state.maxScore}
+          />
+        );
       }
 
       default: {

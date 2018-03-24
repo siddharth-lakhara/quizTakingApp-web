@@ -41,6 +41,11 @@ const Questions = (props) => {
   return questionBox;
 };
 
+const calculateScore = userName =>
+  fetch(`/calc/${userName}`)
+    .then(res => res.json())
+    .then(res => res.score);
+
 class DashBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -64,6 +69,7 @@ class DashBoard extends React.Component {
 
   updateQuestions(questions) {
     this.setState({ questions });
+    this.props.updateScore(questions.length);
   }
 
   updateResponses(responses) {
@@ -90,7 +96,17 @@ class DashBoard extends React.Component {
           responses={this.state.responses}
           updateResponses={this.updateUserResponses}
         />
-        <button className="dashboard-btn">Calculate</button>
+        <button
+          className="dashboard-btn"
+          disabled={!(this.state.questions.length === Object.keys(this.state.responses).length)}
+          onClick={() => {
+            calculateScore(this.props.userName).then((score) => {
+              this.props.changePage(score);
+            });
+          }}
+        >
+        Calculate
+        </button>
       </div>
     );
   }
