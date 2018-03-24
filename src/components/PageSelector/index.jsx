@@ -46,8 +46,14 @@ class PageSelector extends React.Component {
       case 'leaderBoard': {
         return (
           <LeaderBoard
+            currentUser={this.props.user}
             score={this.state.score}
             maxScore={this.state.maxScore}
+            changePage={() => {
+              this.setState({
+                currentPage: 'login',
+              });
+            }}
           />
         );
       }
